@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculatrice</title>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <style>
+    body{
+      text-align: center;
+      margin-top: 10%;
+    }
+  </style>
+</head>
+<body>
+    <h1>Calculateur du carré</h1>
+       <label for="number">Entrer un nombre: </label>
+            <input type="number" id="number"/>
+                 <p id="numberText"></p>
+           <input type="Submit" id="calculate" value="Calculer" /> 
+</body>
+
+<script>
+var number = document.getElementById("number");
+var result = document.getElementById("numberText");
+var calcBtn = document.getElementById("calculate");
+
+
+function convert()
+{
+  var carre = (number.value)*(number.value);
+  result.innerHTML = carre.toFixed(0);
+}
+
+function createEventListener()
+{
+  if (calcBtn.addEventListener)
+  {
+    calcBtn.addEventListener("click", convert, false);
+  }
+  else if (calcBtn.attachEvent)
+  {
+    calcBtn.attachEvent("onclick", convert);
+  }
+}
+
+if (window.addEventListener)
+{
+  window.addEventListener("load", createEventListener, false);
+}
+else if (window.attachEvent)
+{
+  window.attachEvent("onload", createEventListener);
+}
+
+</script>
+</html>
