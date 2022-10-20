@@ -4,18 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculatrice JS</title>
+    <title>Calculatrice WASM</title>
 
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-  <style>
+<style>
     body{
       text-align: center;
       margin-top: 10%;
     }
   </style>
+
+    <script src="script.js"></script>
+
 </head>
 <body>
     <h1>Calculateur du carré</h1>
@@ -33,7 +32,9 @@ var calcBtn = document.getElementById("calculate");
 
 function convert()
 {
-  var carre = (number.value)*(number.value);
+  // CALL WASM INSTEAD OF Js
+  //var carre = (number.value)*(number.value);
+  var carre=  wasmExports.square(number.value);
   result.innerHTML = carre.toFixed(0);
 }
 
@@ -59,4 +60,6 @@ else if (window.attachEvent)
 }
 
 </script>
+
+<script src="script.js"></script>
 </html>

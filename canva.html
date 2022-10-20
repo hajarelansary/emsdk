@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canva</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script type="text/javascript" src=" canvas.js"></script>
+</head>
+<body>
+    <h2>WASM ln(x)+x+sqrt(1+x) </h2>
+    <canvas id="myChart" style="width:100%"></canvas>
+    <table  id="WASMTABLE"   >
+        <thead>
+          <tr>
+            <th scope="col">X</th>
+            <th scope="col">f(X)</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+</body>
+<script>
+
+    let min = 2;
+    let max = 50;
+    var WASMxValues = [];
+    var WASMyValues = [];
+    var result = Module.onRuntimeInitialized = () => {
+    var size = max-min + 1;
+    var array = new Array(max-min);
+    var arr = new Float32Array(wasmMemory.buffer, 4, size * Float32Array.BYTES_PER_ELEMENT);
+    Module._data(arr.byteOffset,min, max);
+    var tableRef = document.getElementById('WASMTABLE').getElementsByTagName('tbody')[0];
+  let j = 0;
+  for(let i = min; i <max; i++){
+    WASMxValues.push(arr[j].toFixed(3));
+    WASMyValues.push(i);
+    var myHtmlContent = "<tr><td style=\"text-align: center;\" >"+i+"</td><td style=\"text-align: center;\" >"+arr[j].toFixed(3)+"</td></tr>"
+    var newRow = tableRef.insertRow(tableRef.rows.length);
+    newRow.innerHTML = myHtmlContent;
+    j++;
+  }
+  new Chart("myChart", {
+  type: "bar",
+  data: {
+    labels: WASMxValues,
+    datasets: [{
+      fill: false,
+      lineTension: 0,
+      backgroundColor: "blue",
+      borderColor: "blue",
+      data: WASMyValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    scales: {
+      yAxes: [{ticks: {min: 6, max:16}}],
+    }
+  }
+  });
+      }
+
+    </script>
+</html>
